@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MITRAN CYBER LAB</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#050a08;color:#00ff91;font-family:Arial,sans-serif}
+header{padding:24px 18px;background:#09150f;border-bottom:1px solid #00ff91}
+h1{margin:0;font-size:25px;letter-spacing:2px}
+header p{color:#9bb9a8}
+main{padding:16px;max-width:750px;margin:auto}
+.card{background:#0b1711;border:1px solid #145b39;border-radius:14px;padding:17px;margin:14px 0}
+h2{font-size:17px;color:#00ff91}
+button{background:#00d979;color:#001b0e;border:0;border-radius:8px;padding:12px;font-weight:bold;margin:5px 0;cursor:pointer}
+input{width:100%;padding:13px;background:#050a08;color:#00ff91;border:1px solid #267a4c;border-radius:8px;margin:8px 0}
+.result{color:#d2ffe4;white-space:pre-wrap;overflow-wrap:anywhere}
+nav{display:flex;gap:7px;flex-wrap:wrap}
+nav button{flex:1;min-width:90px}
+footer{text-align:center;padding:25px;color:#638c73}
+</style>
+</head>
+<body>
+<header>
+<h1>⌘ MITRAN CYBER LAB</h1>
+<p>ETHICAL CYBERSECURITY CENTER</p>
+<div>● SYSTEM ONLINE</div>
+</header>
+<main>
+<nav>
+<button onclick="show('home')">Home</button>
+<button onclick="show('wifi')">Wi-Fi</button>
+<button onclick="show('password')">Password</button>
+<button onclick="show('terminal')">Terminal</button>
+</nav>
+
+<section id="home" class="card">
+<h2>CYBER DASHBOARD</h2>
+<p>Welcome to your cybersecurity laboratory.</p>
+<p>Available tools: 4</p>
+<p class="result">STATUS: READY<br>MODE: EDUCATIONAL</p>
+</section>
+
+<section id="wifi" class="card" hidden>
+<h2>WI-FI NETWORK ANALYZER</h2>
+<p>Check your current network information.</p>
+<button onclick="network()">Check Connection</button>
+<div id="wifiResult" class="result"></div>
+</section>
+
+<section id="password" class="card" hidden>
+<h2>PASSWORD STRENGTH TESTER</h2>
+<input id="pass" type="password" placeholder="Enter a test password">
+<button onclick="testPassword()">Analyze Password</button>
+<div id="passResult" class="result"></div>
+</section>
+
+<section id="terminal" class="card" hidden>
+<h2>HACKER TERMINAL SIMULATOR</h2>
+<input id="command" placeholder="Type help">
+<button onclick="runCommand()">Execute</button>
+<div id="terminalResult" class="result">MITRAN TERMINAL READY</div>
+</section>
+</main>
+<footer>MITRAN CYBER LAB © 2026</footer>
+<script>
+function show(id){
+document.querySelectorAll('main section').forEach(s=>s.hidden=true);
+document.getElementById(id).hidden=false;
+}
+function network(){
+const el=document.getElementById('wifiResult');
+el.textContent='Checking browser network connection...';
+el.textContent += '\nOnline: '+(navigator.onLine?'Yes':'No');
+el.textContent += '\nConnection details depend on browser permissions.';
+}
+function testPassword(){
+let p=document.getElementById('pass').value;
+let score=0;
+if(p.length>=12)score++;
+if(/[A-Z]/.test(p))score++;
+if(/[a-z]/.test(p))score++;
+if(/[0-9]/.test(p))score++;
+if(/[^A-Za-z0-9]/.test(p))score++;
+document.getElementById('passResult').textContent=
+'Strength: '+['Very weak','Weak','Fair','Good','Strong','Very strong'][score]+
+'\nChecks passed: '+score+'/5';
+}
+function runCommand(){
+let c=document.getElementById('command').value.trim().toLowerCase();
+let output={
+help:'Commands: help, status, scan, clear',
+status:'SYSTEM ONLINE\nETHICAL MODE ACTIVE',
+scan:'Simulator: network scan demonstration complete.\nNo external devices scanned.',
+clear:''
+};
+let el=document.getElementById('terminalResult');
+if(c==='clear')el.textContent='';
+else el.textContent+=' \n> '+c+'\n'+(output[c]||'Unknown command. Type help.');
+}
+</script>
+</body>
+</html>
